@@ -4,12 +4,13 @@ package javaUD26.librarysystem;
 import java.util.ArrayList;
 
 public class Library {
-    static void main() {
 
-        Book[] books = new Book[100];
-        int bookCount = 0;
-        Member[] members = new Member[100];
-        int memberCount = 0;
+    static Book[] books = new Book[100];
+    static int bookCount = 0;
+    static Member[] members = new Member[100];
+    static int memberCount = 0;
+
+    static void main() {
 
         boolean closeApplication = false;
         String inputChoice;
@@ -35,20 +36,11 @@ public class Library {
             switch (inputChoice) {
                 case "1" -> {
                     //Lägg till bok
-                    addBook(books);
+                    addBook();
                 }
                 case "2" -> {
                     //Lägg till medlem
-                    String newMemberName = IO.readln("Skriv medlemmens namn: ");
-                    String newMemberId = IO.readln("Skriv medlemmens ID (10 siffror): ");
-
-                    try  {
-                        Member newMember = new Member(newMemberName, newMemberId);
-                        members.add(newMember);
-                    }
-                    catch (IllegalArgumentException e) {
-                        IO.println(e.getMessage());
-                    }
+                    addMember();
                 }
                 case "3" -> {
                     //Låna bok
@@ -75,14 +67,42 @@ public class Library {
 
     }
 
-    private static void addBook(ArrayList<Book> books) {
+    private static void addBook(){
+        if (bookCount == books.length) {
+            IO.println("Biblioteket är fullt, kan inte lägga till fler böcker.");
+            return;
+        }
         String newTitle = IO.readln("Ange bokens titel: ");
         String newAuthor = IO.readln("Ange bokens författare: ");
         String newIsbn = IO.readln("Ange ISBN: ");
 
         try {
-        Book book = new Book(newTitle, newAuthor, newIsbn);
-        books.add(book);
+            Book book = new Book(newTitle, newAuthor, newIsbn);
+            books[bookCount] = book;
+            bookCount++;
+
+            IO.println("Boken har lagts till.");
+            }
+        catch (IllegalArgumentException e) {
+            IO.println(e.getMessage());
+            }
+
+    }
+
+    private static void addMember(){
+        if (memberCount == members.length) {
+            IO.println("Medlemslistan är full.");
+            return;
+        }
+        String newMemberName = IO.readln("Skriv medlemmens namn: ");
+        String newMemberId = IO.readln("Skriv medlemmens ID (10 siffror): ");
+
+        try  {
+            Member member = new Member(newMemberName, newMemberId);
+            members[memberCount] = member;
+            memberCount++;
+
+            IO.println("Medlemmen har lagts till.");
         }
         catch (IllegalArgumentException e) {
             IO.println(e.getMessage());
