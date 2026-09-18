@@ -6,8 +6,11 @@ import java.util.ArrayList;
 public class Library {
     static void main() {
 
-        ArrayList<Book> books = new ArrayList<>();
-        ArrayList<Member> members = new ArrayList<>();
+        Book[] books = new Book[100];
+        int bookCount = 0;
+        Member[] members = new Member[100];
+        int memberCount = 0;
+
         boolean closeApplication = false;
         String inputChoice;
         String menu = """
@@ -36,6 +39,16 @@ public class Library {
                 }
                 case "2" -> {
                     //Lägg till medlem
+                    String newMemberName = IO.readln("Skriv medlemmens namn: ");
+                    String newMemberId = IO.readln("Skriv medlemmens ID (10 siffror): ");
+
+                    try  {
+                        Member newMember = new Member(newMemberName, newMemberId);
+                        members.add(newMember);
+                    }
+                    catch (IllegalArgumentException e) {
+                        IO.println(e.getMessage());
+                    }
                 }
                 case "3" -> {
                     //Låna bok
@@ -65,9 +78,14 @@ public class Library {
     private static void addBook(ArrayList<Book> books) {
         String newTitle = IO.readln("Ange bokens titel: ");
         String newAuthor = IO.readln("Ange bokens författare: ");
-        int newIsbn = Integer.parseInt(IO.readln("Ange ISBN: "));
+        String newIsbn = IO.readln("Ange ISBN: ");
 
+        try {
         Book book = new Book(newTitle, newAuthor, newIsbn);
         books.add(book);
+        }
+        catch (IllegalArgumentException e) {
+            IO.println(e.getMessage());
+        }
     }
 }

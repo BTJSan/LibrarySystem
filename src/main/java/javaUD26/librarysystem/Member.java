@@ -3,11 +3,14 @@ package javaUD26.librarysystem;
 public class Member {
     private String memberName;
     private String memberID;
-    private String activeLoans;
+    private int activeLoans;
 
     public Member(String memberName, String memberID) {
         this.memberName = memberName;
         this.memberID = memberID;
+        if (memberID.length() != 10) {
+            throw new IllegalArgumentException("Felaktig inmatning, 10 siffror krävs.");
+        }
     }
 
     public String getMemberName() {
@@ -22,10 +25,10 @@ public class Member {
     public void setMemberID(String memberID) {
         this.memberID = memberID;
     }
-    public String getActiveLoans() {
+    public int getActiveLoans() {
         return activeLoans;
     }
-    public void setActiveLoans(String activeLoans) {
+    public void setActiveLoans(int activeLoans) {
         this.activeLoans = activeLoans;
     }
 }
