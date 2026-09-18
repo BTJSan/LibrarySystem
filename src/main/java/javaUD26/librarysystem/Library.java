@@ -45,33 +45,12 @@ public class Library {
                 }
                 case "3" -> {
                     //Låna bok
-                    IO.println("Ange vilken bok du vill låna:");
-                    for (int i = 0; i < bookCount; i++) {
-                        IO.println((i + 1) + ": " +  books[i].title() + " (" + books[i].author() + ")");
-                    }
-                    int choice = Integer.parseInt(IO.readln("Välj boknummer: ")) - 1;
-                    if  (choice < 0 || choice > bookCount) {
-                        IO.println("Ogiltigt val");
-                        return;
-                    }
-                    if (borrowedBy[choice] != null) {
-                        IO.println("Boken är redan utlånad.");
-                    }
-
-                    IO.println("Medlemmar: ");
-                    for (int i = 0; i < memberCount; i++) {
-                        IO.println((i + 1) + ": " + members[i].getMemberName());
-                    }
-                    int memberChoice = Integer.parseInt(IO.readln("Välj medlem som ska låna: ")) - 1;
-                    if (!members[memberChoice].canBorrowMore()) {
-                        IO.println("Medlemmen har nått max antal lån.");
-                        return;
-                    }
-                    members[memberChoice].setActiveLoans(members[memberChoice].getActiveLoans() + 1);
-
+                    borrowBook();
                 }
                 case "4" -> {
                     //Lämna tillbaka bok
+                    returnBook();
+
                 }
                 case "5" -> {
                     //Sök bok
@@ -133,6 +112,74 @@ public class Library {
         catch (IllegalArgumentException e) {
             IO.println(e.getMessage());
         }
+    }
+
+    private static void borrowBook(){
+        IO.println("Ange vilken bok du vill låna:");
+        for (int i = 0; i < bookCount; i++) {
+            IO.println((i + 1) + ": " +  books[i].title() + " (" + books[i].author() + ")");
+        }
+        int bookChoice = Integer.parseInt(IO.readln("Välj boknummer: ")) - 1;
+        if  (bookChoice < 0 || bookChoice >= bookCount) {
+            IO.println("Ogiltigt val.");
+            return;
+        }
+        if (borrowedBy[bookChoice] != null) {
+            IO.println("Boken är redan utlånad.");
+            return;
+        }
+
+        IO.println("Medlemmar: ");
+        for (int i = 0; i < memberCount; i++) {
+            IO.println((i + 1) + ": " + members[i].getMemberName());
+        }
+        int memberChoice = Integer.parseInt(IO.readln("Välj medlem som ska låna: ")) - 1;
+        if (memberChoice < 0 || memberChoice >= memberCount) {
+            IO.println("Ogiltigt val.");
+            return;
+        }
+        if (!members[memberChoice].canBorrowMore()) {
+            IO.println("Medlemmen har nått max antal lån.");
+            return;
+        }
+        members[memberChoice].setActiveLoans(members[memberChoice].getActiveLoans() + 1);
+        borrowedBy[bookChoice] = members[memberChoice];
+        IO.println("Boken är nu utlånad till " + members[memberChoice].getMemberName() + ".");
+
+
+    }
+
+    public static void returnBook(){
+        IO.println("Ange vem ska lämna tillbaka en bok:");
+        for (int i = 0; i < memberCount; i++) {
+            IO.println((i + 1) + ": " +  members[i].getMemberName());
+        }
+        int memberChoice = Integer.parseInt(IO.readln()) -1;
+        if (memberChoice < 0 || memberChoice >= memberCount) {
+            IO.println("Felaktigt värde.");
+            return;
+        }
+
+        IO.println("Ange vilken bok som ska lämnas tillbaka: ");
+        for (int i = 0; i < bookCount; i++) {
+            if (borrowedBy[i] == members[memberChoice]) {
+                IO.println((i + 1) + ": " + books[i].title() + (" (") + books[i].author() + (")"));
+            }
+        }
+
+        int bookChoice = Integer.parseInt(IO.readln("Ange vilken bok du vill lämna tillbaka: ")) -1;
+        if (bookChoice < 0 || bookChoice >= bookCount) {
+            IO.println("Felaktigt värde.");
+            return;
+        }
+        if (borrowedBy[bookChoice] != members[memberChoice]) {
+            IO.println("Den här boken lånas inte av medlemmen.");
+            return;
+        }
+
+        borrowedBy[bookChoice] = null;
+        members[memberChoice].setActiveLoans(members[memberChoice].getActiveLoans() - 1);
+        IO.println("Boken har lämnats tillbaka.");
     }
 
     private static void bookStatus() {
