@@ -31,4 +31,8 @@ public class Member {
     public void setActiveLoans(int activeLoans) {
         this.activeLoans = activeLoans;
     }
+
+    public boolean canBorrowMore() {
+        return activeLoans < 5;
+    }
 }

@@ -9,6 +9,7 @@ public class Library {
     static int bookCount = 0;
     static Member[] members = new Member[100];
     static int memberCount = 0;
+    static Member[] borrowedBy = new Member[100];
 
     static void main() {
 
@@ -44,6 +45,30 @@ public class Library {
                 }
                 case "3" -> {
                     //Låna bok
+                    IO.println("Ange vilken bok du vill låna:");
+                    for (int i = 0; i < bookCount; i++) {
+                        IO.println((i + 1) + ": " +  books[i].title() + " (" + books[i].author() + ")");
+                    }
+                    int choice = Integer.parseInt(IO.readln("Välj boknummer: ")) - 1;
+                    if  (choice < 0 || choice > bookCount) {
+                        IO.println("Ogiltigt val");
+                        return;
+                    }
+                    if (borrowedBy[choice] != null) {
+                        IO.println("Boken är redan utlånad.");
+                    }
+
+                    IO.println("Medlemmar: ");
+                    for (int i = 0; i < memberCount; i++) {
+                        IO.println((i + 1) + ": " + members[i].getMemberName());
+                    }
+                    int memberChoice = Integer.parseInt(IO.readln("Välj medlem som ska låna: ")) - 1;
+                    if (!members[memberChoice].canBorrowMore()) {
+                        IO.println("Medlemmen har nått max antal lån.");
+                        return;
+                    }
+                    members[memberChoice].setActiveLoans(members[memberChoice].getActiveLoans() + 1);
+
                 }
                 case "4" -> {
                     //Lämna tillbaka bok
@@ -53,6 +78,7 @@ public class Library {
                 }
                 case "6" -> {
                     //Visa böcker och bokstatus
+                    bookStatus();
                 }
                 case "e"  -> {
                     closeApplication = true;
@@ -108,4 +134,23 @@ public class Library {
             IO.println(e.getMessage());
         }
     }
+
+    private static void bookStatus() {
+        for (int i = 0; i < bookCount; i++) {
+            Book b = books[i];
+
+            //Bokinfo
+            IO.println("Titel:\t\t" + b.title());
+            IO.println("Författare:\t" + b.author());
+            IO.println("ISBN:\t\t" + b.isbnNumber());
+
+            //Status
+            if (borrowedBy[i] == null) {
+                IO.println("Status: Tillgänglig.\n");
+            }
+            else
+                IO.println("Status: Utlånad till " + borrowedBy[i].getMemberName());
+        }
+    }
+
 }
