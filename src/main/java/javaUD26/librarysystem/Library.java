@@ -24,6 +24,7 @@ public class Library {
                 4. Lämna tillbaka bok
                 5. Sök bok (titel eller författare)
                 6. Visa alla böcker samt status
+                7. Flest lånade böcker
                 e. Avsluta
                 ----------------------
                 """;
@@ -58,6 +59,10 @@ public class Library {
                     //Visa böcker och bokstatus
                     bookStatus();
                 }
+                case "7" -> {
+                    //Skriva ut medlemmen med högst antal lånade böcker
+                    mostActiveLoans();
+                }
                 case "e"  -> {
                     closeApplication = true;
                 }
@@ -70,8 +75,6 @@ public class Library {
 
 
     }
-
-
 
     private static void addBook(){
 //        if (bookCount == books.length) {
@@ -97,6 +100,16 @@ public class Library {
         catch (IllegalArgumentException e) {
             IO.println(e.getMessage());
             }
+
+        for (int i = 0; i < bookCount - 1; i++) {
+            for (int j = 0; j < bookCount - 1 - i; j++) {
+                if (books[j].title().compareTo(books[j + 1].title()) > 0) {
+                    Book temp = books[j];
+                    books[j] = books[j + 1];
+                    books[j + 1] = temp;
+                }
+            }
+        }
 
     }
 
@@ -232,6 +245,22 @@ public class Library {
             else
                 IO.println("Status: Utlånad till " + borrowedBy[i].getMemberName());
         }
+    }
+
+    private static void mostActiveLoans() {
+        int maxLoans = 0;
+        Member topMember = null;
+
+        for (int i = 0; i < memberCount; i++) {
+            if (members[i].getActiveLoans() > maxLoans) {
+                maxLoans = members[i].getActiveLoans();
+                topMember = members[i];
+            }
+        }
+        if (topMember == null)
+            IO.println("Inga lån registrerade.");
+        else
+            IO.println("Flest lånade böcker:" + topMember.getMemberName());
     }
 
 }
