@@ -1,5 +1,7 @@
 package javaUD26.librarysystem;
 
+import java.util.Arrays;
+
 public class Library {
 
     static Book[] books = new Book[100];
@@ -72,10 +74,15 @@ public class Library {
 
 
     private static void addBook(){
-        if (bookCount == books.length) {
-            IO.println("Biblioteket är fullt, kan inte lägga till fler böcker.");
-            return;
+//        if (bookCount == books.length) {
+//            IO.println("Biblioteket är fullt, kan inte lägga till fler böcker.");
+//            return;
+//        }
+
+        if (bookCount >= books.length) {
+            books = Arrays.copyOf(books, books.length * 2);
         }
+
         String newTitle = IO.readln("Ange bokens titel: ");
         String newAuthor = IO.readln("Ange bokens författare: ");
         String newIsbn = IO.readln("Ange ISBN: ");
@@ -94,10 +101,15 @@ public class Library {
     }
 
     private static void addMember(){
-        if (memberCount == members.length) {
-            IO.println("Medlemslistan är full.");
-            return;
+//        if (memberCount == members.length) {
+//            IO.println("Medlemslistan är full.");
+//            return;
+//        }
+
+        if (memberCount >= members.length) {
+            members = Arrays.copyOf(members, members.length * 2);
         }
+
         String newMemberName = IO.readln("Skriv medlemmens namn: ");
         String newMemberId = IO.readln("Skriv medlemmens ID (10 siffror): ");
 
