@@ -61,4 +61,14 @@ författare att ändras till små bokstäver med toLowerCase. Om boken finns kom
 ett meddelande att den inte hittades.  
   
 bookStatus-metoden använder en for-loop för att gå igenom samtliga böcker och lista upp all information samt om de är  
-tillgängliga eller utlånade samt till vilken medlem.
+tillgängliga eller utlånade samt till vilken medlem.  
+  
+- **Avslutande reflektion**
+När jag började arbeta med uppgiften hade jag glömt att vi inte skulle använda ArrayList, vilket gjorde att jag blev  
+tvungen att skriva om väldigt mycket kod och lösa problem manuellt. Där har vi fördelen med Collections Framework.  
+Det blev väldigt tydligt att det är mycket jag som programmerare behövde hålla reda på och lösa manuellt.  
+Med Collections Framework får jag som skriver kod väldigt mycket gratis då många verktyg och metoder löser mycket  
+åt mig. Stora kodblock hade kunnat bli väldigt mycket enklare och kortare t.ex. med dynamisk kapacitet som finns  
+direkt i ArrayList, sökningsmetoder och sorteringsmetoder som kan anropas från biblioteket. Ett exempel, om jag förstått  
+rätt, så skulle det vara möjligt att sortera arrayerna utifrån olika data som de innehåller, exempelvis på titel,  
+författarens namn eller annat, samt lista upp informationen smidigare.
