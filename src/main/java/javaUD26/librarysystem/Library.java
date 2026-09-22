@@ -15,6 +15,7 @@ public class Library {
         boolean closeApplication = false;
         String inputChoice;
         String menu = """
+                
                 Biblioteksssytem
                 ---------------------
                 Alternativ:
@@ -153,7 +154,7 @@ public class Library {
             return;
         }
 
-        IO.println("Medlemmar: ");
+        IO.println("\nMedlemmar: ");
         for (int i = 0; i < memberCount; i++) {
             IO.println((i + 1) + ": " + members[i].getMemberName());
         }
@@ -173,7 +174,7 @@ public class Library {
 
     }
 
-    public static void returnBook(){
+    private static void returnBook(){
         IO.println("Ange vem ska lämna tillbaka en bok:");
         for (int i = 0; i < memberCount; i++) {
             IO.println((i + 1) + ": " +  members[i].getMemberName());
@@ -184,12 +185,20 @@ public class Library {
             return;
         }
 
-        IO.println("Ange vilken bok som ska lämnas tillbaka: ");
+        boolean hasLoans = false;
+
+        IO.println("Lånade böcker: ");
         for (int i = 0; i < bookCount; i++) {
             if (borrowedBy[i] == members[memberChoice]) {
                 IO.println((i + 1) + ": " + books[i].title() + (" (") + books[i].author() + (")"));
+                hasLoans = true;
             }
         }
+        if (hasLoans == false) {
+            IO.println("Medlemmen har inte några aktiva lån.");
+            return;
+        }
+
 
         int bookChoice = Integer.parseInt(IO.readln("Ange vilken bok du vill lämna tillbaka: ")) -1;
         if (bookChoice < 0 || bookChoice >= bookCount) {
@@ -220,7 +229,10 @@ public class Library {
             if ( title.toLowerCase().contains(searchWord.toLowerCase()) ||
                     author.toLowerCase().contains(searchWord.toLowerCase()) ) {
                 found = true;
-                IO.println(books[i].toString());
+//                IO.println(books[i].toString());
+                IO.println("Titel:\t\t" + books[i].title());
+                IO.println("Författare:\t\t" + books[i].author());
+                IO.println(borrowedBy[i]);
             }
 
         }
