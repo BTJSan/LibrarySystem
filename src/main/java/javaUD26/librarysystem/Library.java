@@ -229,11 +229,19 @@ public class Library {
             if ( title.toLowerCase().contains(searchWord.toLowerCase()) ||
                     author.toLowerCase().contains(searchWord.toLowerCase()) ) {
                 found = true;
-//                IO.println(books[i].toString());
+
                 IO.println("Titel:\t\t" + books[i].title());
                 IO.println("Författare:\t\t" + books[i].author());
-                IO.println(borrowedBy[i]);
+//                IO.println(borrowedBy[i]);
+
+                if (borrowedBy[i] == null)
+                    IO.println("Ej utlånad");
+                else  {
+                    String borrower = borrowedBy[i].getMemberName();
+                    IO.println("Utlånad till:\t\t" + borrower);
+                }
             }
+
 
         }
         if (found == false) {
@@ -255,7 +263,7 @@ public class Library {
                 IO.println("Status: Tillgänglig.\n");
             }
             else
-                IO.println("Status: Utlånad till " + borrowedBy[i].getMemberName());
+                IO.println("Status: Utlånad till " + borrowedBy[i].getMemberName() + "\n");
         }
     }
 
