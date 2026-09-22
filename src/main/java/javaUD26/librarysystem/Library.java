@@ -1,8 +1,5 @@
 package javaUD26.librarysystem;
 
-
-import java.util.ArrayList;
-
 public class Library {
 
     static Book[] books = new Book[100];
@@ -72,28 +69,7 @@ public class Library {
 
     }
 
-    private static void searchBook() {
-        String searchWord = IO.readln("Ange namn på författare eller boktitel: ");
 
-        boolean found = false;
-
-        for (int i = 0; i < bookCount; i++) {
-
-            String title = books[i].title();
-            String author = books[i].author();
-
-
-            if ( title.toLowerCase().contains(searchWord.toLowerCase()) ||
-                    author.toLowerCase().contains(searchWord.toLowerCase()) ) {
-                found = true;
-                IO.println(books[i].toString());
-            }
-
-        }
-        if (found == false) {
-            IO.println("Boken hittades inte.");
-        }
-    }
 
     private static void addBook(){
         if (bookCount == books.length) {
@@ -203,6 +179,29 @@ public class Library {
         borrowedBy[bookChoice] = null;
         members[memberChoice].setActiveLoans(members[memberChoice].getActiveLoans() - 1);
         IO.println("Boken har lämnats tillbaka.");
+    }
+
+    private static void searchBook() {
+        String searchWord = IO.readln("Ange namn på författare eller boktitel: ");
+
+        boolean found = false;
+
+        for (int i = 0; i < bookCount; i++) {
+
+            String title = books[i].title();
+            String author = books[i].author();
+
+
+            if ( title.toLowerCase().contains(searchWord.toLowerCase()) ||
+                    author.toLowerCase().contains(searchWord.toLowerCase()) ) {
+                found = true;
+                IO.println(books[i].toString());
+            }
+
+        }
+        if (found == false) {
+            IO.println("Boken hittades inte.");
+        }
     }
 
     private static void bookStatus() {
