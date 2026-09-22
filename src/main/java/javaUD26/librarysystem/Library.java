@@ -50,10 +50,10 @@ public class Library {
                 case "4" -> {
                     //Lämna tillbaka bok
                     returnBook();
-
                 }
                 case "5" -> {
                     //Sök bok
+                    searchBook();
                 }
                 case "6" -> {
                     //Visa böcker och bokstatus
@@ -70,6 +70,29 @@ public class Library {
         }
 
 
+    }
+
+    private static void searchBook() {
+        String searchWord = IO.readln("Ange namn på författare eller boktitel: ");
+
+        boolean found = false;
+
+        for (int i = 0; i < bookCount; i++) {
+
+            String title = books[i].title();
+            String author = books[i].author();
+
+
+            if ( title.toLowerCase().contains(searchWord.toLowerCase()) ||
+                    author.toLowerCase().contains(searchWord.toLowerCase()) ) {
+                found = true;
+                IO.println(books[i].toString());
+            }
+
+        }
+        if (found == false) {
+            IO.println("Boken hittades inte.");
+        }
     }
 
     private static void addBook(){
