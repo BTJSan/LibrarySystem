@@ -41,6 +41,8 @@ det enkelt att läsa koden. Jag valde även att lägga metoderna i samma ordning
   
 I addBook-metoden får användaren lägga till en bok och måste ange titel, författare och ISBN. En kontroll görs genom en  
 try-catch som skriver ut ett felmeddelande om något fält saknas.  
+I slutet av metoden ligger också en bubblesort som ser till att alla böcker sorteras enligt titel så fort en ny  
+läggs till.
   
 Metoden addMember liknar addBook väldigt mycket, men här ska medlemmens namn anges samt medlemmens id-nummer med  
 10 siffror. Det testas också med en try-catch som skriver ut om något saknas eller om det inte är 10 siffror.  
