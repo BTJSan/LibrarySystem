@@ -141,7 +141,16 @@ public class Library {
         for (int i = 0; i < bookCount; i++) {
             IO.println((i + 1) + ": " +  books[i].title() + " (" + books[i].author() + ")");
         }
-        int bookChoice = Integer.parseInt(IO.readln("Välj boknummer: ")) - 1;
+        int bookChoice;
+        try {
+            bookChoice = Integer.parseInt(IO.readln("Välj boknummer: ")) - 1;
+
+        }
+        catch (NumberFormatException e) {
+            IO.println("Du måste ange en giltig siffra.");
+            return;
+        }
+
         if  (bookChoice < 0 || bookChoice >= bookCount) {
             IO.println("Ogiltigt val.");
             return;
@@ -155,7 +164,16 @@ public class Library {
         for (int i = 0; i < memberCount; i++) {
             IO.println((i + 1) + ": " + members[i].getMemberName());
         }
-        int memberChoice = Integer.parseInt(IO.readln("Välj medlem som ska låna: ")) - 1;
+        int memberChoice;
+
+        try {
+            memberChoice = Integer.parseInt(IO.readln("Välj medlem som ska låna: ")) - 1;
+
+        }
+        catch (NumberFormatException e) {
+            IO.println("Du måste ange en giltig siffra.");
+            return;
+        }
         if (memberChoice < 0 || memberChoice >= memberCount) {
             IO.println("Ogiltigt val.");
             return;
@@ -181,7 +199,15 @@ public class Library {
         for (int i = 0; i < memberCount; i++) {
             IO.println((i + 1) + ": " +  members[i].getMemberName());
         }
-        int memberChoice = Integer.parseInt(IO.readln()) -1;
+        int memberChoice;
+
+        try {
+           memberChoice = Integer.parseInt(IO.readln()) - 1;
+        }
+        catch (NumberFormatException e) {
+            IO.println("Du måste ange en giltig siffra.");
+            return;
+        }
         if (memberChoice < 0 || memberChoice >= memberCount) {
             IO.println("Felaktigt värde.");
             return;
@@ -202,7 +228,15 @@ public class Library {
         }
 
 
-        int bookChoice = Integer.parseInt(IO.readln("Ange vilken bok du vill lämna tillbaka: ")) -1;
+        int bookChoice;
+
+        try {
+           bookChoice = Integer.parseInt(IO.readln("Ange vilken bok du vill lämna tillbaka: ")) - 1;
+        }
+        catch (NumberFormatException e) {
+            IO.println("Du måste ange en giltig siffra.");
+            return;
+        }
         if (bookChoice < 0 || bookChoice >= bookCount) {
             IO.println("Felaktigt värde.");
             return;
