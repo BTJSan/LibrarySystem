@@ -78,10 +78,6 @@ public class Library {
     }
 
     private static void addBook(){
-//        if (bookCount == books.length) {
-//            IO.println("Biblioteket är fullt, kan inte lägga till fler böcker.");
-//            return;
-//        }
 
         if (bookCount >= books.length) {
             books = Arrays.copyOf(books, books.length * 2);
@@ -115,10 +111,6 @@ public class Library {
     }
 
     private static void addMember(){
-//        if (memberCount == members.length) {
-//            IO.println("Medlemslistan är full.");
-//            return;
-//        }
 
         if (memberCount >= members.length) {
             members = Arrays.copyOf(members, members.length * 2);
@@ -247,7 +239,6 @@ public class Library {
 
                 IO.println("Titel:\t\t" + books[i].title());
                 IO.println("Författare:\t\t" + books[i].author());
-//                IO.println(borrowedBy[i]);
 
                 if (borrowedBy[i] == null)
                     IO.println("Ej utlånad");
