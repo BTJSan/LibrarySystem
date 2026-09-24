@@ -140,6 +140,11 @@ public class Library {
     }
 
     private static void borrowBook(){
+        if (memberCount == 0 || bookCount == 0) {
+            IO.println("Det finns inga medlemmar och/eller böcker registrerade, lån kan inte genomföras.");
+            return;
+        }
+
         IO.println("Ange vilken bok du vill låna:");
         for (int i = 0; i < bookCount; i++) {
             IO.println((i + 1) + ": " +  books[i].title() + " (" + books[i].author() + ")");
@@ -175,6 +180,11 @@ public class Library {
     }
 
     private static void returnBook(){
+        if (memberCount == 0 || bookCount == 0) {
+            IO.println("Det finns inga medlemmar och/eller böcker registrerade, retur kan inte genomföras.");
+            return;
+        }
+
         IO.println("Ange vem ska lämna tillbaka en bok:");
         for (int i = 0; i < memberCount; i++) {
             IO.println((i + 1) + ": " +  members[i].getMemberName());
@@ -216,6 +226,11 @@ public class Library {
     }
 
     private static void searchBook() {
+        if (memberCount == 0 || bookCount == 0) {
+            IO.println("Det finns inga medlemmar och/eller böcker registrerade, sökning kan inte genomföras.");
+            return;
+        }
+
         String searchWord = IO.readln("Ange namn på författare eller boktitel: ");
 
         boolean found = false;
@@ -250,6 +265,11 @@ public class Library {
     }
 
     private static void bookStatus() {
+        if (bookCount == 0) {
+            IO.println("Det finns inga böcker registrerade.");
+            return;
+        }
+
         for (int i = 0; i < bookCount; i++) {
             Book b = books[i];
 
@@ -268,6 +288,11 @@ public class Library {
     }
 
     private static void mostActiveLoans() {
+        if (memberCount == 0) {
+            IO.println("Det finns inga böcker registrerade.");
+            return;
+        }
+
         int maxLoans = 0;
         Member topMember = null;
 
